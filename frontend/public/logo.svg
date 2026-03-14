@@ -1,0 +1,10 @@
+<svg width="164" height="64" viewBox="0 0 164 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00D1FF" />
+      <stop offset="100%" stop-color="#53E8FF" />
+    </linearGradient>
+  </defs>
+  <rect width="164" height="64" rx="12" fill="#0C1321" stroke="url(#neon)" stroke-width="2" />
+  <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle" fill="url(#neon)" font-family="Orbitron, sans-serif" font-size="26" font-weight="700">NEXX</text>
+</svg>
