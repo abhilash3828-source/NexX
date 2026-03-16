@@ -91,6 +91,6 @@ NEXT_PUBLIC_ADMIN_PASS=nexxadmin
 
 ## UPI Payment Flow (Recommended)
 
-1. Pay ₹20 to `nexxesports@upi` using any UPI app.
+1. Pay ₹20 to `abhilash.3828@oksbi` using any UPI app.
 2. Upload the payment screenshot and enter the Transaction ID on the registration page.
 3. Admin manually verifies and approves the registration.
