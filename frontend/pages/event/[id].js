@@ -10,13 +10,13 @@ export default function EventPage() {
   const router = useRouter();
   const { id } = router.query;
   const tournament = useMemo(() => tournaments.find((t) => t.id === id), [id]);
-  const [seatsLeft, setSeatsLeft] = useState(tournament?.slots ?? 0);
+  const [seatsLeft, setSeatsLeft] = useState(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || !tournament) return;
     fetchSeats().then((counts) => {
       const registered = counts[id] ?? 0;
-      setSeatsLeft(Math.max((tournament?.slots ?? 0) - registered, 0));
+      setSeatsLeft(Math.max(tournament.slots - registered, 0));
     });
   }, [id, tournament]);
 
@@ -62,7 +62,7 @@ export default function EventPage() {
                 <div className="rounded-2xl bg-black/20 p-5">
                   <p className="text-xs font-semibold uppercase tracking-wide text-white/60">Slots</p>
                   <p className="mt-2 text-lg font-semibold text-white">
-                    {seatsLeft} / {tournament.slots}
+                    {seatsLeft !== null ? seatsLeft : tournament.slots} / {tournament.slots}
                   </p>
                 </div>
               </div>
