@@ -108,17 +108,17 @@ export default function RegistrationForm({ eventId, maxSlots, deadline }) {
       <div className="mt-6 rounded-2xl bg-black/20 p-4">
         <p className="text-sm font-semibold text-white/80">Pay ₹20 using UPI</p>
         <p className="mt-1 text-sm text-white/70">
-          Scan the QR or pay to <span className="font-semibold text-white">nexxesports@upi</span>
+          Scan the QR or pay to <span className="font-semibold text-white">abhilash.3828@oksbi</span>
         </p>
         <div className="mt-4 grid gap-4 md:grid-cols-[1fr_auto]">
           <div className="space-y-2 rounded-xl bg-white/5 p-4">
             <p className="text-xs text-white/60">UPI URI</p>
-            <code className="break-all text-sm text-white/80">upi://pay?pa=nexxesports@upi&amp;pn=NEXX%20Esports&amp;am=20</code>
+            <code className="break-all text-sm text-white/80">upi://pay?pa=abhilash.3828@oksbi&amp;pn=NEXX%20Esports&amp;am=20</code>
             <p className="text-xs text-white/60">Tip: Copy & paste into your UPI app or scan the QR code.</p>
           </div>
           <div className="flex items-center justify-center rounded-xl bg-white/5 p-4">
             <QRCode
-              value="upi://pay?pa=nexxesports@upi&pn=NEXX%20Esports&am=20"
+              value="upi://pay?pa=abhilash.3828@oksbi&pn=NEXX%20Esports&am=20"
               size={140}
               bgColor="#0b0f1a"
               fgColor="#00d1ff"
