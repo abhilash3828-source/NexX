@@ -1,12 +1,27 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { tournaments, pastTournaments } from "../lib/tournaments";
 import Hero from "../components/Hero";
 import TournamentCard from "../components/TournamentCard";
 import StatCard from "../components/StatCard";
 import { motion } from "framer-motion";
+import { fetchSeats } from "../lib/api";
 
 export default function Home() {
   const upcoming = tournaments.slice(0, 2);
+  const [seats, setSeats] = useState({});
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchSeats()
+      .then((data) => {
+        if (isMounted) setSeats(data);
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <div>
@@ -72,7 +87,11 @@ export default function Home() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {upcoming.map((tournament) => (
-            <TournamentCard key={tournament.id} tournament={tournament} />
+            <TournamentCard
+              key={tournament.id}
+              tournament={tournament}
+              registered={seats[tournament.id] || 0}
+            />
           ))}
         </div>
 
