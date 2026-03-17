@@ -17,7 +17,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="flex justify-center mb-8"
           >
-            <Image src="/images/logo.jpg" alt="NEXX Esports" width={200} height={90} priority />
+            <Image src="/images/logo2.jpg" alt="NEXX Esports" width={200} height={90} priority />
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
