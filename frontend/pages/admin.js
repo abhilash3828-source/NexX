@@ -36,6 +36,16 @@ export default function AdminPage() {
     }
   };
 
+  const handleDecline = async (item) => {
+    try {
+      const updated = await updateRegistration(item.id, { status: "declined" });
+      setParticipants((prev) => prev.map((p) => (p.id === item.id ? updated : p)));
+      toast.pushToast(`Declined ${item.inGameName}`, "info");
+    } catch (err) {
+      toast.pushToast(err.message || "Could not decline", "error");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {
@@ -147,7 +157,7 @@ export default function AdminPage() {
             </a>
           </div>
           <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr_0.6fr] gap-4 border-b border-white/10 bg-black/20 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-white/70">
+            <div className="grid grid-cols-[1.2fr_1fr_1fr_0.8fr_1fr] gap-4 border-b border-white/10 bg-black/20 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-white/70">
               <span>Name</span>
               <span>UID</span>
               <span>Txn ID</span>
@@ -163,7 +173,7 @@ export default function AdminPage() {
                 {participants.map((item) => (
                   <div
                     key={item.id}
-                    className="grid grid-cols-[1.2fr_1fr_1fr_0.7fr_0.9fr] gap-4 px-4 py-4 text-sm text-white/80"
+                    className="grid grid-cols-[1.2fr_1fr_1fr_0.8fr_1fr] gap-4 px-4 py-4 text-sm text-white/80"
                   >
                     <div className="flex flex-col">
                       <span className="font-semibold text-white">{item.fullName}</span>
@@ -180,20 +190,30 @@ export default function AdminPage() {
                         className={`inline-flex items-center justify-center rounded-full px-3 py-1 text-xs font-semibold ${
                           item.status === "approved"
                             ? "bg-emerald-500/20 text-emerald-200"
+                            : item.status === "declined"
+                            ? "bg-red-500/20 text-red-200"
                             : "bg-yellow-500/20 text-yellow-200"
                         }`}
                       >
                         {item.status || "pending"}
                       </span>
                     </div>
-                    <div>
+                    <div className="flex gap-2">
                       <button
-                        disabled={item.status === "approved"}
+                        disabled={item.status === "approved" || item.status === "declined"}
                         type="button"
                         onClick={() => handleApprove(item)}
-                        className="rounded-full bg-cyan-500/10 px-4 py-1 text-xs font-semibold text-cyan-200 transition hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-200 transition hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         Approve
+                      </button>
+                      <button
+                        disabled={item.status === "declined"}
+                        type="button"
+                        onClick={() => handleDecline(item)}
+                        className="rounded-full bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-200 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-40"
+                      >
+                        Decline
                       </button>
                     </div>
                   </div>
