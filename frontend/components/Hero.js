@@ -11,12 +11,19 @@ export default function Hero() {
       </div>
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 text-center">
         <div className="max-w-2xl">
-          <Image src="/logo.svg" alt="NEXX Esports" width={180} height={70} priority />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center mb-8"
+          >
+            <Image src="/current-logo.jpg" alt="NEXX Esports" width={200} height={90} priority />
+          </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mt-6 text-4xl font-bold leading-tight text-white sm:text-5xl"
+            className="text-4xl font-bold leading-tight text-white sm:text-5xl"
           >
             Compete. Conquer. Become Legend.
           </motion.h1>
