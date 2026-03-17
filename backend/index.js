@@ -24,7 +24,7 @@ const upload = multer({
 
 function isFull(eventId) {
   const regs = readAll();
-  const total = regs.filter((r) => r.eventId === eventId).length;
+  const total = regs.filter((r) => r.eventId === eventId && r.status === "approved").length;
   const max = tournaments[eventId]?.slots || 50;
   return total >= max;
 }
@@ -32,7 +32,9 @@ function isFull(eventId) {
 app.get("/api/registrations/counts", (req, res) => {
   const regs = readAll();
   const counts = regs.reduce((acc, reg) => {
-    acc[reg.eventId] = (acc[reg.eventId] || 0) + 1;
+    if (reg.status === "approved") {
+      acc[reg.eventId] = (acc[reg.eventId] || 0) + 1;
+    }
     return acc;
   }, {});
   res.json(counts);
