@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 const tournaments = require("./data/tournaments");
 const { readAll, addRegistration, updateRegistration } = require("./utils/storage");
 const { appendRegistrationToSheet } = require("./utils/sheets");
+const { sendApprovalEmail, sendDeclineEmail } = require("./utils/email");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -91,13 +92,21 @@ app.post("/api/registrations/:eventId", upload.single("screenshot"), async (req,
   res.json({ success: true, record });
 });
 
-app.patch("/api/registrations/:id", (req, res) => {
+app.patch("/api/registrations/:id", async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
   const updated = updateRegistration(id, updates);
   if (!updated) {
     return res.status(404).json({ message: "Not found." });
   }
+
+  // Send email based on status update
+  if (updates.status === "approved") {
+    await sendApprovalEmail(updated);
+  } else if (updates.status === "declined") {
+    await sendDeclineEmail(updated);
+  }
+
   res.json(updated);
 });
 
