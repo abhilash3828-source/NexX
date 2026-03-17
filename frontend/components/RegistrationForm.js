@@ -17,7 +17,7 @@ export default function RegistrationForm({ eventId, maxSlots, deadline }) {
   const toast = useToast();
   const [fields, setFields] = useState(initialFields);
   const [loading, setLoading] = useState(false);
-  const [seatsLeft, setSeatsLeft] = useState(maxSlots);
+  const [registeredCount, setRegisteredCount] = useState(0);
   const [full, setFull] = useState(false);
   const formRef = useRef(null);
 
@@ -31,7 +31,7 @@ export default function RegistrationForm({ eventId, maxSlots, deadline }) {
     fetchSeats().then((counts) => {
       if (!mounted) return;
       const registered = counts[eventId] ?? 0;
-      setSeatsLeft(Math.max(maxSlots - registered, 0));
+      setRegisteredCount(registered);
       setFull(registered >= maxSlots);
     });
     return () => {
@@ -83,7 +83,7 @@ export default function RegistrationForm({ eventId, maxSlots, deadline }) {
       // Refresh seats
       const counts = await fetchSeats();
       const registered = counts[eventId] ?? 0;
-      setSeatsLeft(Math.max(maxSlots - registered, 0));
+      setRegisteredCount(registered);
       setFull(registered >= maxSlots);
     } catch (error) {
       toast.pushToast(error.message || "Registration failed.", "error");
@@ -96,8 +96,8 @@ export default function RegistrationForm({ eventId, maxSlots, deadline }) {
     <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="text-sm font-semibold text-white/70">Seats left</p>
-          <p className="text-2xl font-bold text-white">{seatsLeft} / {maxSlots}</p>
+          <p className="text-sm font-semibold text-white/70">Seats Filled</p>
+          <p className="text-2xl font-bold text-white">{registeredCount} / {maxSlots}</p>
         </div>
         <div>
           <p className="text-sm font-semibold text-white/70">Entry fee</p>
