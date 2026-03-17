@@ -27,7 +27,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-3">
-          <Image src="/logo.svg" alt="NEXX Esports" width={120} height={48} />
+          <Image src="/current-logo.jpg" alt="NEXX Esports" width={140} height={55} />
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-semibold tracking-wide text-white lg:flex">
