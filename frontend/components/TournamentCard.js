@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function TournamentCard({ tournament, seatsLeft = 0 }) {
-  const seats = seatsLeft ?? tournament.slots;
-  const isFull = seats <= 0;
+export default function TournamentCard({ tournament, registered = 0 }) {
+  const isFull = registered >= tournament.slots;
   const upcoming = new Date(tournament.date) > new Date();
 
   return (
@@ -36,7 +35,7 @@ export default function TournamentCard({ tournament, seatsLeft = 0 }) {
           <div className="rounded-xl bg-white/5 p-3">
             <p className="text-xs uppercase tracking-widest text-white/50">Slots</p>
             <p className="mt-1 text-sm font-semibold text-white">
-              {Math.max(seats, 0)} / {tournament.slots}
+              {registered} / {tournament.slots}
             </p>
           </div>
         </div>
